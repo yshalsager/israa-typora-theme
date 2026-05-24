@@ -1,0 +1,206 @@
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\usepackage{bidi}
+\usepackage{fancyhdr}
+\usepackage{etoolbox}
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{tabularx}
+
+\definecolor{israaInk}{HTML}{1F1B16}
+\definecolor{israaBlue}{HTML}{006699}
+\definecolor{israaRed}{HTML}{D10000}
+\definecolor{israaGold}{HTML}{DCAB08}
+\definecolor{israaBorder}{HTML}{D8D0C3}
+\definecolor{israaCodeBg}{HTML}{F5F9FC}
+\definecolor{israaCodeFg}{HTML}{173245}
+\definecolor{israaCodeBorder}{HTML}{C7D7E3}
+\definecolor{israaTableHead}{HTML}{EAF4FA}
+
+\defaultfontfeatures{Ligatures=TeX,Renderer=HarfBuzz}
+\setmainlanguage[numerals=maghrib]{arabic}
+\setotherlanguage{english}
+
+\newcommand{\israafontpath}{../israa-rtl/}
+
+\setmainfont[
+  Path=\israafontpath,
+  UprightFont={ScheherazadeNew-Regular.ttf},
+  BoldFont={ScheherazadeNew-Bold.ttf},
+  Script=Arabic
+]{Scheherazade New}
+
+\newfontfamily\arabicfont[
+  Path=\israafontpath,
+  UprightFont={ScheherazadeNew-Regular.ttf},
+  BoldFont={ScheherazadeNew-Bold.ttf},
+  Script=Arabic
+]{Scheherazade New}
+
+\newfontfamily\headingfont[
+  Path=\israafontpath,
+  UprightFont={PT_Bold_Heading.ttf},
+  BoldFont={PT_Bold_Heading.ttf},
+  Script=Arabic
+]{PT Bold Heading}
+
+\newfontfamily\englishfont[
+  Path=\israafontpath,
+  UprightFont={IBMPlexSansArabic-Regular.ttf},
+  BoldFont={IBMPlexSansArabic-Bold.ttf}
+]{IBM Plex Sans Arabic}
+\newfontfamily\latinfont[
+  Path=\israafontpath,
+  UprightFont={IBMPlexSansArabic-Regular.ttf},
+  BoldFont={IBMPlexSansArabic-Bold.ttf}
+]{IBM Plex Sans Arabic}
+\setmonofont{Menlo}[Scale=0.76]
+\newfontfamily\arabicfonttt{Menlo}[Scale=0.76]
+
+\AtBeginDocument{%
+  \color{israaInk}%
+  \fontsize{18pt}{32.4pt}\selectfont%
+}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.55em}
+\setlength{\emergencystretch}{3em}
+\sloppy
+
+\setlength{\fboxsep}{1.5pt}
+\let\israaoldtexttt\texttt
+\renewcommand{\texttt}[1]{%
+  \begingroup
+  \latinfont\fontsize{12pt}{14pt}\selectfont
+  \colorbox{israaCodeBg}{\textcolor{israaCodeFg}{\israaoldtexttt{#1}}}%
+  \endgroup
+}
+
+\newsavebox{\israashadedbox}
+\renewenvironment{Shaded}
+  {%
+    \par\vspace{0.45em}%
+    \begin{lrbox}{\israashadedbox}%
+    \begin{minipage}{0.94\linewidth}%
+    \begin{LTR}%
+  }
+  {%
+    \end{LTR}%
+    \end{minipage}%
+    \end{lrbox}%
+    \noindent\fcolorbox{israaCodeBorder}{israaCodeBg}{\usebox{\israashadedbox}}%
+    \vspace{0.55em}%
+  }
+
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{%
+  commandchars=\\\{\},
+  fontsize=\fontsize{10.5pt}{13pt}\selectfont,
+  baselinestretch=1.2,
+  xleftmargin=0pt,
+  xrightmargin=0pt
+}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{%
+  fontsize=\fontsize{10.5pt}{13pt}\selectfont,
+  baselinestretch=1.2,
+  frame=single,
+  rulecolor=\color{israaCodeBorder},
+  framesep=6pt
+}
+
+\arrayrulecolor{israaBorder}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{7pt}
+\setlength{\aboverulesep}{0.3em}
+\setlength{\belowrulesep}{0.3em}
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{\fill}
+\AtBeginEnvironment{longtable}{\fontsize{15.5pt}{24pt}\selectfont}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\headingfont\fontsize{11pt}{14pt}\selectfont\nouppercase{\rightmark}}
+\fancyfoot[C]{\fontsize{11pt}{13pt}\selectfont\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headsep}{16pt}
+\newcommand{\israacurrentsection}{}
+\renewcommand{\sectionmark}[1]{%
+  \gdef\israacurrentsection{#1}%
+  \markright{#1}%
+}
+\renewcommand{\subsectionmark}[1]{%
+  \markright{\israacurrentsection{} ـ #1}%
+}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\fontsize{11pt}{13pt}\selectfont\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+\newif\ifisraafirstheading
+\israafirstheadingtrue
+\newcommand{\israabreakbeforeheading}{%
+  \ifisraafirstheading
+    \global\israafirstheadingfalse
+  \else
+    \clearpage
+  \fi
+}
+
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {0pt}%
+  {0.45em}%
+  {\normalfont\headingfont\fontsize{28.3pt}{34pt}\selectfont\bfseries\centering}}
+
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {0pt}%
+  {0.4em}%
+  {\normalfont\headingfont\fontsize{23.1pt}{28pt}\selectfont\bfseries\color{israaRed}\raggedleft}}
+
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+  {0.8em}%
+  {0.25em}%
+  {\normalfont\headingfont\fontsize{21.6pt}{26pt}\selectfont\bfseries\raggedleft}}
+
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {0.8em}%
+  {0.25em}%
+  {\normalfont\headingfont\fontsize{19.4pt}{24pt}\selectfont\bfseries\raggedleft}}
+
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\z@}%
+  {0.8em}%
+  {0.25em}%
+  {\normalfont\headingfont\fontsize{18pt}{22pt}\selectfont\bfseries\raggedleft}}
+
+\pretocmd{\section}{\israabreakbeforeheading}{}{}
+\pretocmd{\subsection}{\israabreakbeforeheading}{}{}
+\makeatother
+
+\let\oldquote\quote
+\let\endoldquote\endquote
+\renewenvironment{quote}
+  {%
+    \par\vspace{0.55em}%
+    \begin{list}{}{\rightmargin=0pt\leftmargin=0pt}%
+    \item\relax
+    \noindent\hfill
+    \begin{minipage}{0.965\linewidth}%
+    \begingroup
+    \color{israaInk}%
+    \setlength{\parindent}{0pt}%
+    \setlength{\parskip}{0.35em}%
+    \vrule width 3pt\hspace{0.75em}%
+    \begin{minipage}{0.92\linewidth}%
+  }
+  {%
+    \end{minipage}%
+    \endgroup
+    \end{minipage}%
+    \end{list}%
+    \vspace{0.35em}%
+  }

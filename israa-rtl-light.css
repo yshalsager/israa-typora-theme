@@ -1,0 +1,501 @@
+/* Israa RTL Light Theme for Typora
+ * Fonts and hierarchy:
+ * - Body: Scheherazade New
+ * - Headings: PT Bold Heading
+ */
+
+@font-face {
+    font-family: "Scheherazade New";
+    src: url("./israa-rtl/ScheherazadeNew-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Scheherazade New";
+    src: url("./israa-rtl/ScheherazadeNew-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Israa Heading";
+    src: url("./israa-rtl/PT_Bold_Heading.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #243748;
+    --control-text-color: #6e6458;
+    --israa-font-body:
+        "Scheherazade New", "Sakkal Majalla", "Traditional Arabic", "Amiri",
+        "Noto Naskh Arabic", "Times New Roman", serif;
+    --israa-font-heading:
+        "Israa Heading", "PT Bold Heading", "Noto Naskh Arabic",
+        "Scheherazade New", "Traditional Arabic", serif;
+    --israa-font-code:
+        "SFMono-Regular", "Cascadia Code", "Fira Code", "Menlo", "Consolas",
+        monospace;
+    --monospace: var(--israa-font-code);
+
+    --israa-paper: #ffffff;
+    --israa-surface: #ffffff;
+    --israa-ink: #1f1b16;
+    --israa-muted: #6e6458;
+    --israa-border: #d8d0c3;
+
+    --israa-blue: #0084bd;
+    --israa-blue-deep: #006699;
+    --israa-gold: #dcab08;
+    --israa-green: #1b945c;
+    --israa-code-bg: #f5f9fc;
+    --israa-code-fg: #173245;
+    --israa-code-border: #c7d7e3;
+    --israa-code-gutter-bg: #ecf3f8;
+    --israa-code-gutter-border: #d5e1ea;
+    --israa-code-line-number: #6a889d;
+}
+
+html {
+    font-size: 19px;
+    background: #ffffff;
+}
+
+body {
+    background: #ffffff;
+    color: var(--text-color);
+    line-height: 1.85;
+}
+
+#write {
+    direction: rtl;
+    text-align: right;
+    font-family: var(--israa-font-body);
+    font-size: 1rem;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 2.4rem 3rem 4rem;
+    background: #ffffff;
+    color: var(--israa-ink);
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+#write p {
+    margin: 0.25em 0 0.8em;
+    text-indent: 1.2em;
+    text-align: justify;
+    text-align-last: right;
+    overflow-wrap: anywhere;
+}
+
+#write h1 + p,
+#write h2 + p,
+#write h3 + p,
+#write h4 + p,
+#write h5 + p,
+#write h6 + p,
+#write li p,
+#write blockquote p,
+#write .md-table p {
+    text-indent: 0;
+}
+
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+    font-family: var(--israa-font-heading);
+    font-weight: 800;
+    color: color-mix(in srgb, var(--israa-ink) 85%, var(--israa-blue-deep) 15%);
+    letter-spacing: 0;
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+    line-height: 1.38;
+    text-indent: 0;
+}
+
+#write h1 {
+    text-align: center;
+    font-weight: 900;
+    font-size: 1.74rem;
+    margin-top: 0.15em;
+    margin-bottom: 0.4em;
+    padding-bottom: 0.35em;
+    line-height: 1.5;
+    border-bottom: 2px solid
+        color-mix(in srgb, var(--israa-gold) 60%, var(--israa-border) 40%);
+}
+
+#write h2 {
+    color: #d10000;
+    font-size: 1.42rem;
+    margin-top: 1.2em;
+    margin-bottom: 0.36em;
+    border-right: 5px solid var(--israa-blue);
+    padding-right: 0.5em;
+}
+
+#write h3 {
+    font-size: 1.2rem;
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+    color: color-mix(in srgb, var(--israa-ink) 75%, var(--israa-blue) 25%);
+}
+
+#write h4 {
+    font-size: 1.08rem;
+    margin-top: 0.88em;
+    margin-bottom: 0.26em;
+    color: color-mix(in srgb, var(--israa-ink) 75%, var(--israa-green) 25%);
+}
+
+#write h5,
+#write h6 {
+    font-size: 1rem;
+    margin-top: 0.72em;
+    margin-bottom: 0.22em;
+    color: var(--israa-muted);
+}
+
+#write strong {
+    font-weight: 800;
+    color: color-mix(in srgb, var(--israa-ink) 80%, var(--israa-blue-deep) 20%);
+}
+
+#write p[style*="text-align:center"],
+#write p[style*="text-align: center"] {
+    text-align: center !important;
+    text-align-last: center;
+    text-indent: 0;
+}
+
+#write b {
+    font-weight: 800;
+}
+
+#write em {
+    color: color-mix(in srgb, var(--israa-ink) 78%, var(--israa-green) 22%);
+}
+
+#write a {
+    color: var(--israa-blue-deep);
+    text-decoration-color: color-mix(
+        in srgb,
+        var(--israa-blue) 48%,
+        transparent 52%
+    );
+    text-underline-offset: 0.16em;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+#write p > a[href^="http"] {
+    display: block;
+    width: 100%;
+    direction: ltr;
+    unicode-bidi: bidi-override;
+    text-align: left;
+    text-indent: 0;
+    white-space: normal;
+}
+
+#write p > a[href^="http"] {
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+#write p:has(> a[href^="http"]:only-child) {
+    text-align: left;
+    text-align-last: left;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-indent: 0;
+}
+
+#write a:hover {
+    color: var(--israa-blue);
+}
+
+#write ul,
+#write ol {
+    padding-right: 1.7em;
+    padding-left: 0;
+}
+
+#write li {
+    margin: 0.3em 0;
+}
+
+#write ul > li::marker,
+#write ol > li::marker {
+    color: var(--israa-blue);
+}
+
+#write blockquote {
+    margin: 1.05em 0;
+    padding: 0.55em 0.9em 0.55em 1em;
+    border-right: 5px solid var(--israa-gold);
+    border-left: 0;
+    border-radius: 0 8px 8px 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        color-mix(in srgb, var(--israa-gold) 9%, white 91%)
+    );
+    color: color-mix(in srgb, var(--israa-ink) 88%, var(--israa-muted) 12%);
+}
+
+#write blockquote p {
+    margin: 0.15em 0 0.45em;
+    text-align: justify;
+    text-align-last: right;
+}
+
+#write blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+#write hr {
+    border: 0;
+    height: 2px;
+    margin: 1.8em 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--israa-gold),
+        transparent
+    );
+}
+
+#write table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.1em 0;
+    direction: rtl;
+}
+
+#write table th,
+#write table td {
+    border: 1px solid var(--israa-border);
+    padding: 0.45em 0.65em;
+    text-align: right;
+}
+
+#write table thead th {
+    background: color-mix(in srgb, var(--israa-blue) 10%, white 90%);
+    color: color-mix(in srgb, var(--israa-blue-deep) 70%, var(--israa-ink) 30%);
+    font-family: var(--israa-font-heading);
+}
+
+#write img {
+    display: block;
+    margin: 1.2em auto;
+    border: 1px solid color-mix(in srgb, var(--israa-border) 80%, white 20%);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px
+        color-mix(in srgb, var(--israa-blue) 14%, transparent 86%);
+}
+
+#write code,
+#write .md-inline-math,
+#write pre,
+#write .md-fences,
+#write .md-meta-block {
+    direction: ltr;
+    text-align: left;
+    unicode-bidi: isolate;
+    font-family: var(--israa-font-code);
+}
+
+#write code {
+    background: var(--israa-code-bg);
+    color: var(--israa-code-fg);
+    border: 1px solid var(--israa-code-border);
+    border-radius: 5px;
+    padding: 0.06em 0.34em;
+    font-size: 0.9rem;
+}
+
+#write .md-fences {
+    margin: 1rem 0 1.2rem;
+    padding: 0.9rem 0.95rem 0.78rem;
+    background: var(--israa-code-bg);
+    color: var(--israa-code-fg);
+    border: 1px solid var(--israa-code-border);
+    border-radius: 10px;
+    line-height: 1.6;
+    font-size: 0.93rem;
+}
+
+#write pre.md-meta-block {
+    background: var(--israa-code-gutter-bg);
+    border: 1px solid var(--israa-code-border);
+    border-radius: 10px;
+    padding: 0.75rem 0.9rem;
+}
+
+#write .md-fences .code-tooltip,
+#write .md-fences-adv-panel {
+    background: var(--israa-code-gutter-bg);
+    border: 1px solid var(--israa-code-border);
+    border-radius: 7px;
+    box-shadow: none;
+}
+
+#write .md-fences .code-tooltip {
+    padding: 0.15rem 0.45rem;
+}
+
+#fences-auto-suggest .active {
+    background: color-mix(in srgb, var(--israa-blue) 14%, white 86%);
+}
+
+/* Source mode: style the container and tokens, not CodeMirror layout internals */
+#typora-source {
+    font-family: var(--israa-font-body);
+    color: var(--text-color);
+}
+
+.cm-s-typora-default .cm-header,
+.cm-s-typora-default .cm-property,
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor {
+    color: var(--israa-blue-deep);
+}
+
+#write .md-task-list-item > input {
+    margin-left: 0.6em;
+    margin-right: 0;
+}
+
+#write .md-toc {
+    direction: rtl;
+    text-align: right;
+}
+
+.typora-export,
+.typora-export-content {
+    direction: rtl;
+    text-align: right;
+    font-family: var(--israa-font-body);
+    color: var(--israa-ink);
+}
+
+body.typora-export,
+.typora-export,
+.typora-export-content {
+    background: #ffffff !important;
+}
+
+body.typora-export #write,
+.typora-export #write,
+.typora-export-content #write {
+    background: #ffffff !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    max-width: none !important;
+}
+
+.typora-export-content a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.typora-export-content p > a[href^="http"],
+.typora-export p > a[href^="http"],
+body.typora-export p > a[href^="http"] {
+    display: block !important;
+    width: 100% !important;
+    direction: ltr !important;
+    unicode-bidi: bidi-override !important;
+    text-align: left !important;
+    letter-spacing: normal !important;
+    word-spacing: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-all !important;
+    text-indent: 0 !important;
+}
+
+.typora-export .md-fences,
+.typora-export-content .md-fences,
+body.typora-export .md-fences {
+    background: #f6f8fb !important;
+    color: #173245 !important;
+    border: 1px solid #cedae5 !important;
+}
+
+@media print, (overflow-block: paged), (overflow-block: optional-paged) {
+    html {
+        font-size: 24px !important;
+    }
+
+    body {
+        line-height: 1.8 !important;
+        background: #ffffff !important;
+    }
+
+    #write {
+        font-size: 1rem !important;
+        max-width: none !important;
+        padding: 1.6cm 1.8cm 1.9cm !important;
+        box-shadow: none !important;
+        border: 0 !important;
+        background: white !important;
+    }
+
+    #write h1,
+    #write h2 {
+        page-break-before: always;
+        break-before: page;
+        page-break-after: avoid;
+        break-after: avoid-page;
+    }
+
+    #write > h1:first-child,
+    #write > h2:first-child {
+        page-break-before: avoid;
+        break-before: avoid;
+    }
+
+    #write h1 {
+        font-size: 1.571rem !important;
+        margin-top: 0 !important;
+        margin-bottom: 0.45em !important;
+    }
+
+    #write h2 {
+        font-size: 1.286rem !important;
+        margin-top: 0 !important;
+        margin-bottom: 0.4em !important;
+    }
+
+    #write h3 {
+        font-size: 1.2rem !important;
+        margin-top: 0.8em !important;
+        margin-bottom: 0.25em !important;
+    }
+
+    #write h4 {
+        font-size: 1.08rem !important;
+        margin-top: 0.8em !important;
+        margin-bottom: 0.25em !important;
+    }
+
+    #write h5,
+    #write h6 {
+        font-size: 1rem !important;
+        margin-top: 0.8em !important;
+        margin-bottom: 0.25em !important;
+    }
+
+    #write p {
+        margin: 0.15em 0 0.55em !important;
+        text-indent: 1em !important;
+    }
+}

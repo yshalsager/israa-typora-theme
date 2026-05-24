@@ -1,0 +1,26 @@
+from: markdown+tex_math_dollars+raw_tex
+to: pdf
+standalone: true
+pdf-engine: xelatex
+
+variables:
+  documentclass: article
+  papersize: a4
+  geometry:
+    - top=1.6cm
+    - right=1.8cm
+    - bottom=1.9cm
+    - left=1.8cm
+    - headheight=16pt
+    - headsep=12pt
+  colorlinks: true
+  linkcolor: israaBlue
+  urlcolor: israaBlue
+  toc-title: المحتويات
+
+include-in-header:
+  - israa-header.tex
+
+filters:
+  - latin-inline.lua
+  - table-widths.lua

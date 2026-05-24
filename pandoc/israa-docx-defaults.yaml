@@ -1,0 +1,7 @@
+from: markdown+tex_math_dollars+raw_tex
+to: docx
+standalone: true
+reference-doc: reference.docx
+
+variables:
+  toc-title: المحتويات
