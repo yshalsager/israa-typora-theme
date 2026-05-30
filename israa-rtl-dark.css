@@ -479,6 +479,14 @@ body.typora-export .md-fences {
         break-after: avoid-page;
     }
 
+    #write h1.no-page-break,
+    #write h2.no-page-break,
+    #write h1.nopagebreak,
+    #write h2.nopagebreak {
+        page-break-before: auto;
+        break-before: auto;
+    }
+
     #write > h1:first-child,
     #write > h2:first-child {
         page-break-before: avoid;

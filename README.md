@@ -91,6 +91,7 @@ The profile uses:
 ```text
 pandoc/israa-defaults.yaml
 pandoc/israa-header.tex
+pandoc/heading-page-breaks.lua
 pandoc/latin-inline.lua
 pandoc/table-widths.lua
 ```
@@ -121,10 +122,23 @@ For Typora custom export:
 
 - A4 page with Arabic RTL text.
 - `h1` and `h2` start on new pages, except the first heading.
+- Add `{.no-page-break}` or `{.nopagebreak}` to an `h1`/`h2` to keep that heading on the current page in Pandoc PDF export.
 - Running header follows the current `h1` and `h2`.
 - Footer contains the page number.
 - Markdown tables are rendered through `table-widths.lua` to avoid Pandoc LaTeX table alignment issues under RTL.
 - Inline Latin words are wrapped through `latin-inline.lua` for font fallback.
+
+Example:
+
+```markdown
+## عنوان يبقى في الصفحة نفسها {.no-page-break}
+```
+
+For Typora print/export through CSS, the same class is supported on HTML headings:
+
+```html
+<h2 class="no-page-break">عنوان يبقى في الصفحة نفسها</h2>
+```
 
 ## Font And License Notes
 

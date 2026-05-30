@@ -22,5 +22,6 @@ include-in-header:
   - israa-header.tex
 
 filters:
+  - heading-page-breaks.lua
   - latin-inline.lua
   - table-widths.lua

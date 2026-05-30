@@ -143,11 +143,23 @@
 
 \newif\ifisraafirstheading
 \israafirstheadingtrue
+\newif\ifisraaskipnextheadingbreak
+\israaskipnextheadingbreakfalse
+\newcommand{\israanextheadingnobreak}{%
+  \global\israaskipnextheadingbreaktrue
+}
 \newcommand{\israabreakbeforeheading}{%
-  \ifisraafirstheading
-    \global\israafirstheadingfalse
+  \ifisraaskipnextheadingbreak
+    \global\israaskipnextheadingbreakfalse
+    \ifisraafirstheading
+      \global\israafirstheadingfalse
+    \fi
   \else
-    \clearpage
+    \ifisraafirstheading
+      \global\israafirstheadingfalse
+    \else
+      \clearpage
+    \fi
   \fi
 }
 
