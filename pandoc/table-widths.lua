@@ -1,68 +1,24 @@
-local function latex_escape(text)
-  return text
-    :gsub('\\', '\\textbackslash{}')
-    :gsub('([%%{}_$&#])', '\\%1')
-    :gsub('%^', '\\textasciicircum{}')
-    :gsub('~', '\\textasciitilde{}')
-end
-
-local function cell_text(cell)
-  local lines = {}
-  for _, block in ipairs(cell.contents) do
-    lines[#lines + 1] = pandoc.utils.stringify(block)
-  end
-  return latex_escape(table.concat(lines, ' '))
-end
-
-local function row_cells(row)
-  local cells = {}
-  for i = 1, #row.cells do
-    cells[#cells + 1] = cell_text(row.cells[i])
-  end
-  return table.concat(cells, ' & ') .. ' \\\\'
-end
-
 function Table(tbl)
-  if FORMAT ~= 'latex' then
+  if FORMAT ~= 'latex' or #tbl.colspecs == 0 then
     return tbl
   end
 
+  -- Keep the native table AST: Pandoc handles headers, notes and cell resources.
   local count = #tbl.colspecs
-  if count == 0 then
-    return tbl
-  end
-
-  local spec
-  if count == 2 then
-    spec = '@{}>{\\raggedleft\\arraybackslash}p{0.16\\linewidth}>{\\raggedleft\\arraybackslash}X@{}'
-  else
-    local cols = {}
-    for _ = 1, count do
-      cols[#cols + 1] = '>{\\raggedleft\\arraybackslash}X'
+  local columns = tbl.colspecs
+  for i, column in ipairs(columns) do
+    if column[2] == 0 then
+      columns[i] = {column[1], count == 2 and (i == 1 and 0.16 or 0.84) or 1 / count}
     end
-    spec = '@{}' .. table.concat(cols) .. '@{}'
   end
-
-  local out = {
-    '\\noindent\\begingroup',
-    '\\fontsize{15.5pt}{24pt}\\selectfont',
-    '\\begin{tabularx}{\\linewidth}{' .. spec .. '}',
-    '\\toprule'
-  }
-
+  tbl.colspecs = columns
   for _, row in ipairs(tbl.head.rows) do
-    out[#out + 1] = row_cells(row)
-  end
-  out[#out + 1] = '\\midrule'
-
-  for _, body in ipairs(tbl.bodies) do
-    for _, row in ipairs(body.body) do
-      out[#out + 1] = row_cells(row)
+    for _, cell in ipairs(row.cells) do
+      local block = cell.contents[1]
+      if block and (block.t == 'Plain' or block.t == 'Para') then
+        block.content:insert(1, pandoc.RawInline('latex', '\\cellcolor{israaTableHead}\\bfseries '))
+      end
     end
   end
-
-  out[#out + 1] = '\\bottomrule'
-  out[#out + 1] = '\\end{tabularx}'
-  out[#out + 1] = '\\endgroup'
-  return pandoc.RawBlock('latex', table.concat(out, '\n'))
+  return tbl
 end

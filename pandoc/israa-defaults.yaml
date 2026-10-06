@@ -7,10 +7,10 @@ variables:
   documentclass: article
   papersize: a4
   geometry:
-    - top=1.6cm
-    - right=1.8cm
-    - bottom=1.9cm
-    - left=1.8cm
+    - top=18mm
+    - right=20mm
+    - bottom=20mm
+    - left=20mm
     - headheight=16pt
     - headsep=12pt
   colorlinks: true

@@ -19,6 +19,20 @@
 }
 
 @font-face {
+    font-family: "IBM Plex Sans Arabic";
+    src: url("./israa-rtl/IBMPlexSansArabic-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "IBM Plex Sans Arabic";
+    src: url("./israa-rtl/IBMPlexSansArabic-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
     font-family: "Israa Heading";
     src: url("./israa-rtl/PT_Bold_Heading.ttf") format("truetype");
     font-weight: 700;
@@ -89,7 +103,7 @@ body {
     text-indent: 1.2em;
     text-align: justify;
     text-align-last: right;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
 }
 
 #write h1 + p,
@@ -111,7 +125,7 @@ body {
 #write h5,
 #write h6 {
     font-family: var(--israa-font-heading);
-    font-weight: 800;
+    font-weight: 700;
     color: color-mix(in srgb, var(--israa-ink) 85%, var(--israa-blue-deep) 15%);
     letter-spacing: 0;
     margin-top: 1em;
@@ -122,7 +136,7 @@ body {
 
 #write h1 {
     text-align: center;
-    font-weight: 900;
+    font-weight: 700;
     font-size: 1.74rem;
     margin-top: 0.15em;
     margin-bottom: 0.4em;
@@ -164,7 +178,7 @@ body {
 }
 
 #write strong {
-    font-weight: 800;
+    font-weight: 700;
     color: color-mix(in srgb, var(--israa-ink) 80%, var(--israa-blue-deep) 20%);
 }
 
@@ -176,7 +190,7 @@ body {
 }
 
 #write b {
-    font-weight: 800;
+    font-weight: 700;
 }
 
 #write em {
@@ -191,31 +205,21 @@ body {
         transparent 52%
     );
     text-underline-offset: 0.16em;
+    unicode-bidi: isolate;
     overflow-wrap: anywhere;
     word-break: break-word;
 }
 
-#write p > a[href^="http"] {
-    display: block;
-    width: 100%;
-    direction: ltr;
-    unicode-bidi: bidi-override;
-    text-align: left;
-    text-indent: 0;
-    white-space: normal;
-}
-
-#write p > a[href^="http"] {
-    font-size: 0.92rem;
-    line-height: 1.6;
-}
-
-#write p:has(> a[href^="http"]:only-child) {
-    text-align: left;
-    text-align-last: left;
+/* Explicit opt-in: CSS cannot distinguish sibling text nodes with :only-child. */
+#write p.standalone-url {
     direction: ltr;
     unicode-bidi: isolate;
+    text-align: left;
+    text-align-last: left;
     text-indent: 0;
+    font-family: "IBM Plex Sans Arabic", sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.6;
 }
 
 #write a:hover {
@@ -235,6 +239,35 @@ body {
 #write ul > li::marker,
 #write ol > li::marker {
     color: var(--israa-blue);
+}
+
+#write blockquote ol {
+    margin: 0.15em 0 0.45em;
+    padding-right: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+#write blockquote ol > li {
+    display: list-item;
+    position: relative;
+    margin: 0;
+    padding-right: 3em;
+    text-align: justify;
+    text-align-last: right;
+}
+
+#write blockquote ol > li::before {
+    content: counter(list-item) ".";
+    position: absolute;
+    top: 0.05em;
+    right: 0;
+    width: 2.4em;
+    direction: rtl;
+    unicode-bidi: isolate;
+    color: var(--israa-blue);
+    font-family: "IBM Plex Sans Arabic", sans-serif;
+    text-align: right;
 }
 
 #write blockquote {
@@ -407,21 +440,6 @@ body.typora-export #write,
     word-break: break-word;
 }
 
-.typora-export-content p > a[href^="http"],
-.typora-export p > a[href^="http"],
-body.typora-export p > a[href^="http"] {
-    display: block !important;
-    width: 100% !important;
-    direction: ltr !important;
-    unicode-bidi: bidi-override !important;
-    text-align: left !important;
-    letter-spacing: normal !important;
-    word-spacing: normal !important;
-    overflow-wrap: anywhere !important;
-    word-break: break-all !important;
-    text-indent: 0 !important;
-}
-
 .typora-export .md-fences,
 .typora-export-content .md-fences,
 body.typora-export .md-fences {
@@ -431,79 +449,260 @@ body.typora-export .md-fences {
 }
 
 @media print, (overflow-block: paged), (overflow-block: optional-paged) {
+    :root {
+        --bg-color: #ffffff;
+        --text-color: #1f1b16;
+        --israa-ink: #1f1b16;
+        --israa-muted: #514b43;
+        --israa-blue: #006699;
+        --israa-blue-deep: #006699;
+        --israa-border: #a8a8a8;
+        --israa-code-bg: #f6f8fb;
+        --israa-code-fg: #173245;
+        --israa-code-border: #a8a8a8;
+    }
+
     html {
-        font-size: 24px !important;
+        font-size: 17pt !important;
+        background: #ffffff !important;
+        border: 0 !important;
+        height: auto !important;
     }
 
     body {
-        line-height: 1.8 !important;
+        line-height: 1.7 !important;
         background: #ffffff !important;
+        color: var(--israa-ink) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        height: auto !important;
     }
 
+    /* Set A4 and per-page margins in Typora's PDF export settings. */
     #write {
+        font-family: var(--israa-font-body) !important;
         font-size: 1rem !important;
+        line-height: 1.7 !important;
+        font-variant-ligatures: normal;
         max-width: none !important;
-        padding: 1.6cm 1.8cm 1.9cm !important;
+        margin: 0 !important;
+        padding: 0 !important;
         box-shadow: none !important;
         border: 0 !important;
-        background: white !important;
+        background: #ffffff !important;
+        color: var(--israa-ink) !important;
     }
 
     #write h1,
-    #write h2 {
-        page-break-before: always;
-        break-before: page;
+    #write h2,
+    #write h3,
+    #write h4,
+    #write h5,
+    #write h6 {
+        color: var(--israa-ink) !important;
+        font-family: var(--israa-font-body) !important;
+        font-weight: 700;
+        font-synthesis: none;
+        line-height: 1.45;
+        margin: 0.8em 0 0.3em !important;
+        padding: 0;
+        border: 0;
+        page-break-before: auto;
+        break-before: auto;
+        page-break-inside: avoid;
+        break-inside: avoid-page;
         page-break-after: avoid;
         break-after: avoid-page;
     }
 
-    #write h1.no-page-break,
-    #write h2.no-page-break,
-    #write h1.nopagebreak,
-    #write h2.nopagebreak {
+    #write > h1 ~ h1 {
+        page-break-before: always;
+        break-before: page;
+    }
+
+    #write > h1.no-page-break,
+    #write > h1.nopagebreak {
         page-break-before: auto;
         break-before: auto;
     }
 
-    #write > h1:first-child,
-    #write > h2:first-child {
-        page-break-before: avoid;
-        break-before: avoid;
-    }
-
     #write h1 {
-        font-size: 1.571rem !important;
-        margin-top: 0 !important;
-        margin-bottom: 0.45em !important;
+        font-size: 26pt !important;
     }
 
     #write h2 {
-        font-size: 1.286rem !important;
-        margin-top: 0 !important;
-        margin-bottom: 0.4em !important;
+        font-size: 22pt !important;
+        color: var(--israa-blue-deep) !important;
     }
 
     #write h3 {
-        font-size: 1.2rem !important;
-        margin-top: 0.8em !important;
-        margin-bottom: 0.25em !important;
+        font-size: 19pt !important;
     }
 
     #write h4 {
-        font-size: 1.08rem !important;
-        margin-top: 0.8em !important;
-        margin-bottom: 0.25em !important;
+        font-size: 17.5pt !important;
     }
 
     #write h5,
     #write h6 {
-        font-size: 1rem !important;
-        margin-top: 0.8em !important;
-        margin-bottom: 0.25em !important;
+        font-size: 17pt !important;
     }
 
     #write p {
-        margin: 0.15em 0 0.55em !important;
-        text-indent: 1em !important;
+        margin: 0 0 0.3em !important;
+        text-indent: 1em;
+        orphans: 3;
+        widows: 3;
+    }
+
+    #write h1 + p,
+    #write h2 + p,
+    #write h3 + p,
+    #write h4 + p,
+    #write h5 + p,
+    #write h6 + p,
+    #write li p,
+    #write blockquote p,
+    #write table p,
+    #write .md-table p,
+    #write p.standalone-url,
+    #write p[style*="text-align:center"],
+    #write p[style*="text-align: center"] {
+        text-indent: 0;
+    }
+
+    #write strong,
+    #write b,
+    #write em {
+        color: inherit;
+    }
+
+    #write a {
+        color: var(--israa-blue-deep) !important;
+        text-decoration: underline;
+        text-decoration-color: currentColor;
+    }
+
+    #write p.standalone-url {
+        font-size: 12pt;
+    }
+
+    #write ul > li::marker,
+    #write ol > li::marker,
+    #write blockquote ol > li::before {
+        color: var(--israa-ink);
+    }
+
+    #write ol {
+        padding-right: 3em !important;
+        padding-left: 0 !important;
+    }
+
+    #write blockquote ol {
+        padding-right: 0 !important;
+    }
+
+    /* Keep outside markers inside WebKit's printable clipping boundary. */
+    #write ol > li {
+        margin-right: 0.5em;
+    }
+
+    #write blockquote {
+        margin: 0.7em 0;
+        padding: 0.45em 0.75em;
+        border: 0.5pt solid var(--israa-border);
+        border-radius: 0;
+        background: #f7f7f7;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color: var(--israa-ink);
+        page-break-inside: auto;
+        break-inside: auto;
+    }
+
+    #write hr {
+        height: 0;
+        border-top: 0.5pt solid var(--israa-border);
+        background: none;
+        margin: 1em 0;
+    }
+
+    #write table {
+        font-size: 14pt;
+        line-height: 1.65;
+        page-break-inside: auto;
+        break-inside: auto;
+    }
+
+    #write thead {
+        display: table-header-group;
+    }
+
+    #write tr {
+        page-break-inside: avoid;
+        break-inside: avoid-page;
+    }
+
+    #write table th,
+    #write table td {
+        border: 0.5pt solid var(--israa-border);
+        padding: 0.3em 0.5em;
+        overflow-wrap: anywhere;
+    }
+
+    #write table thead th {
+        background: #f2f2f2;
+        font-family: var(--israa-font-body);
+        color: var(--israa-ink);
+        font-weight: 700;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    #write img {
+        max-width: 100%;
+        max-height: 235mm;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        margin: 0.7em auto;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        page-break-inside: avoid;
+        break-inside: avoid-page;
+    }
+
+    #write code {
+        font-size: 11pt;
+        border-radius: 0;
+    }
+
+    #write .md-fences,
+    #write pre {
+        font-size: 10.5pt;
+        line-height: 1.4;
+        border-radius: 0;
+        box-shadow: none;
+        page-break-inside: auto;
+        break-inside: auto;
+    }
+
+    #write .md-fences {
+        padding: 0.5em 0.7em;
+    }
+
+    #write .md-fences code {
+        font-size: inherit;
+    }
+
+    #write .footnotes,
+    #write .footnote-line,
+    #write .md-def-footnote {
+        font-size: 12pt;
+        line-height: 1.6;
+        color: var(--israa-ink);
+        opacity: 1;
     }
 }

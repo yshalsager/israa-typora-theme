@@ -7,17 +7,19 @@ local function has_class(element, expected)
   return false
 end
 
+local first_heading = true
+
 function Header(element)
-  if not FORMAT:match('latex') then
+  if not FORMAT:match('latex') or element.level ~= 1 then
     return nil
   end
 
-  if element.level <= 2 and (has_class(element, 'no-page-break') or has_class(element, 'nopagebreak')) then
-    return {
-      pandoc.RawBlock('latex', '\\israanextheadingnobreak{}'),
-      element,
-    }
-  end
+  local break_before = not first_heading
+    and not has_class(element, 'no-page-break')
+    and not has_class(element, 'nopagebreak')
+  first_heading = false
 
-  return nil
+  if break_before then
+    return {pandoc.RawBlock('latex', '\\clearpage'), element}
+  end
 end
